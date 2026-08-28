@@ -1,0 +1,89 @@
+<Window x:Class="CanTracer.Views.AddBusDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add CAN Bus" Height="400" Width="520"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        FontFamily="Segoe UI" FontSize="12">
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Bus name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox x:Name="NameBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                  IsEditable="True" Margin="0,6">
+            <ComboBoxItem>BCAN</ComboBoxItem>
+            <ComboBoxItem>PCAN</ComboBoxItem>
+            <ComboBoxItem>CCAN</ComboBoxItem>
+            <ComboBoxItem>ICAN</ComboBoxItem>
+            <ComboBoxItem>LCAN</ComboBoxItem>
+            <ComboBoxItem>SCAN</ComboBoxItem>
+            <ComboBoxItem>DCAN</ComboBoxItem>
+        </ComboBox>
+
+        <TextBlock Text="PCAN channel:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox x:Name="ChannelBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,6">
+            <ComboBoxItem IsSelected="True">PCAN_USBBUS1</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS2</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS3</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS4</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS5</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS6</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS7</ComboBoxItem>
+            <ComboBoxItem>PCAN_USBBUS8</ComboBoxItem>
+        </ComboBox>
+
+        <CheckBox x:Name="FdBox" Content="CAN FD"
+                  Grid.Row="2" Grid.Column="1" Margin="0,6"
+                  Checked="OnFdToggled" Unchecked="OnFdToggled"/>
+
+        <TextBlock x:Name="BaudLabel" Text="Baud rate:" Grid.Row="3" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox x:Name="BaudBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,6">
+            <ComboBoxItem>1 Mbit/s</ComboBoxItem>
+            <ComboBoxItem>800 kbit/s</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">500 kbit/s</ComboBoxItem>
+            <ComboBoxItem>250 kbit/s</ComboBoxItem>
+            <ComboBoxItem>125 kbit/s</ComboBoxItem>
+            <ComboBoxItem>100 kbit/s</ComboBoxItem>
+            <ComboBoxItem>50 kbit/s</ComboBoxItem>
+            <ComboBoxItem>20 kbit/s</ComboBoxItem>
+            <ComboBoxItem>10 kbit/s</ComboBoxItem>
+        </ComboBox>
+
+        <TextBlock x:Name="FdLabel" Text="FD bitrate:" Grid.Row="4" Grid.Column="0"
+                   Visibility="Collapsed" VerticalAlignment="Top" Margin="0,8,0,0"/>
+        <TextBox x:Name="FdBox2" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                 Visibility="Collapsed" Margin="0,6"
+                 Height="60" AcceptsReturn="True" TextWrapping="Wrap"
+                 FontFamily="Consolas" FontSize="11"/>
+
+        <TextBlock Text="DBC file (optional):" Grid.Row="5" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="0,6"/>
+        <TextBox x:Name="DbcBox" Grid.Row="5" Grid.Column="1" Margin="0,6,4,6" IsReadOnly="True"/>
+        <Button Content="Browse…" Grid.Row="5" Grid.Column="2" Padding="10,4" Margin="0,6"
+                Click="OnBrowseDbc"/>
+
+        <TextBlock x:Name="StatusBlock" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"
+                   Foreground="DarkRed" Margin="0,4"/>
+
+        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                    Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button Content="Add"    Width="80" Margin="0,0,8,0" Click="OnAdd"   IsDefault="True"/>
+            <Button Content="Cancel" Width="80"                   Click="OnClose" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

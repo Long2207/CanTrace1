@@ -1,0 +1,108 @@
+<Window x:Class="CanTracer.Views.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CAN Settings" Height="640" Width="1020"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI" FontSize="12">
+
+    <DockPanel Margin="14">
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
+            <TextBlock Text="🍌  Settings" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+            <Button Content="↻ Rescan devices" Padding="10,4" Margin="30,0,0,0" Click="OnRescan"
+                    ToolTip="Re-detect PEAK and Vector hardware"/>
+            <TextBlock x:Name="DetectInfo" Margin="14,0,0,0" VerticalAlignment="Center" Foreground="#FF666666"/>
+        </StackPanel>
+
+        <!-- Column headers -->
+        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Bus name" Grid.Column="0" FontWeight="Bold" FontSize="11" Foreground="#FF666666"/>
+            <TextBlock Text="DBC file" Grid.Column="1" FontWeight="Bold" FontSize="11" Foreground="#FF666666"/>
+            <TextBlock Text="Channel (PEAK / Vector)" Grid.Column="3" FontWeight="Bold" FontSize="11" Foreground="#FF666666"/>
+            <TextBlock Text="FD" Grid.Column="4" FontWeight="Bold" FontSize="11" Foreground="#FF666666"/>
+        </Grid>
+
+        <Border DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="#FFD0D0D0"
+                Padding="0,10,0,0" Margin="0,10,0,0">
+            <DockPanel>
+                <TextBlock x:Name="StatusBlock" DockPanel.Dock="Left" Foreground="DarkRed"
+                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="+ Add bus" Width="100" Padding="0,4" Margin="0,0,16,0"
+                            Click="OnAddRow"/>
+                    <Button Content="Apply &amp; Save" Width="120" Padding="0,4" Margin="0,0,8,0"
+                            Click="OnApply" IsDefault="True"
+                            ToolTip="Save configuration and apply to the main window"/>
+                    <Button Content="Cancel" Width="80" Padding="0,4"
+                            Click="OnCancel" IsCancel="True"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="BusRows">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,6" Padding="10,8" CornerRadius="4"
+                                BorderThickness="1" BorderBrush="#FFE0E0E0" Background="#FFFAFAFA">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox  Text="{Binding BusName, UpdateSourceTrigger=PropertyChanged}"
+                                          Grid.Column="0" Margin="0,0,8,0"
+                                          ToolTip="Logical bus name (BCAN, PCAN, CCAN...)"/>
+
+                                <TextBox  Text="{Binding DbcPath, Mode=OneWay}"
+                                          Grid.Column="1" Margin="0,0,4,0" IsReadOnly="True"
+                                          Background="White" ToolTip="DBC file path"/>
+
+                                <Button   Content="📁" Grid.Column="2" Padding="8,2" Margin="0,0,8,0"
+                                          Click="OnBrowseDbc" Tag="{Binding}"
+                                          ToolTip="Browse for a DBC file"/>
+
+                                <ComboBox SelectedItem="{Binding SelectedChannel}"
+                                          ItemsSource="{Binding DataContext.AvailableChannels,
+                                                       RelativeSource={RelativeSource AncestorType=Window}}"
+                                          Grid.Column="3" Margin="0,0,8,0"
+                                          ToolTip="Hardware channel (PEAK or Vector)"/>
+
+                                <CheckBox IsChecked="{Binding IsFd}" Content="FD"
+                                          Grid.Column="4" VerticalAlignment="Center"
+                                          ToolTip="Enable CAN FD"/>
+
+                                <Button   Content="🔌 Connect" Grid.Column="5"
+                                          Padding="6,2" Margin="0,0,8,0" Click="OnConnectRow"
+                                          Tag="{Binding}"
+                                          ToolTip="Apply this bus and connect (auto-starts trace)"/>
+
+                                <Button   Content="✕" Grid.Column="6"
+                                          Padding="6,2" Background="Transparent" BorderThickness="0"
+                                          Foreground="#FFB00020" FontWeight="Bold"
+                                          Click="OnDeleteRow" Tag="{Binding}"
+                                          ToolTip="Remove this bus"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+</Window>

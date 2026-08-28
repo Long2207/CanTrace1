@@ -1,0 +1,16 @@
+<Application x:Class="CanTracer.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CanTracer"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- Converters -->
+        <local:InverseBooleanConverter   x:Key="InvertBool"/>
+        <local:BoolToVisibilityConverter x:Key="BoolToVis"/>
+
+        <!-- Trace-like styles (CANoe inspired) -->
+        <SolidColorBrush x:Key="RowRxBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="RowTxBrush" Color="#FFEEF6FF"/>
+        <SolidColorBrush x:Key="HeaderBrush" Color="#FFE6E6E6"/>
+    </Application.Resources>
+</Application>

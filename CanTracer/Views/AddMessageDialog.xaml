@@ -1,0 +1,52 @@
+<Window x:Class="CanTracer.Views.AddMessageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Message" Height="460" Width="520"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI" FontSize="12">
+
+    <DockPanel Margin="14">
+
+        <!-- Method 1: type an ID or name -->
+        <Border DockPanel.Dock="Top" BorderThickness="1" BorderBrush="#FFE0E0E0"
+                CornerRadius="4" Padding="10" Margin="0,0,0,10" Background="#FFFAFAFA">
+            <StackPanel>
+                <TextBlock Text="① Enter message ID or name" FontWeight="Bold" Margin="0,0,0,6"/>
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="Add" Width="70" Padding="0,4"
+                            Margin="8,0,0,0" Click="OnAddTyped"/>
+                    <TextBox x:Name="IdNameBox" VerticalContentAlignment="Center" Padding="4"
+                             ToolTip="e.g. 0x488 or ACM_WarnMsg"/>
+                </DockPanel>
+                <TextBlock Text="If it matches a DBC message, its signals are filled automatically."
+                           FontSize="10" Foreground="#FF888888" Margin="0,4,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Bottom buttons -->
+        <Border DockPanel.Dock="Bottom" Padding="0,10,0,0">
+            <DockPanel>
+                <TextBlock x:Name="StatusBlock" DockPanel.Dock="Left" Foreground="DarkRed"
+                           VerticalAlignment="Center"/>
+                <Button Content="Close" Width="80" Padding="0,5" HorizontalAlignment="Right"
+                        Click="OnClose" IsCancel="True"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Method 2: pick from DBC list -->
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="② Or pick from the DBC messages"
+                       FontWeight="Bold" Margin="0,0,0,6"/>
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+                <Button DockPanel.Dock="Right" Content="Add selected" Width="100" Padding="0,4"
+                        Margin="8,0,0,0" Click="OnAddSelected"/>
+                <TextBox x:Name="FilterBox" VerticalContentAlignment="Center" Padding="4"
+                         TextChanged="OnFilterChanged"
+                         ToolTip="Filter the list"/>
+            </DockPanel>
+            <ListBox x:Name="DbcList" SelectionMode="Single"
+                     MouseDoubleClick="OnListDoubleClick"/>
+        </DockPanel>
+
+    </DockPanel>
+</Window>

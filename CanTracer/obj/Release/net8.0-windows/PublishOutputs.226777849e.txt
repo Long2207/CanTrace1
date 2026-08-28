@@ -1,0 +1,8 @@
+D:\Tool\CanTracer.exe
+D:\Tool\PCANBasic.dll
+D:\Tool\CanTracer.dll
+D:\Tool\CanTracer.deps.json
+D:\Tool\CanTracer.runtimeconfig.json
+D:\Tool\CanTracer.pdb
+D:\Tool\SharpCompress.dll
+D:\Tool\vxlapi_NET.dll

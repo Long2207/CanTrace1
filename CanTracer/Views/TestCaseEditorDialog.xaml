@@ -1,0 +1,86 @@
+<Window x:Class="CanTracer.Views.TestCaseEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Testcase Editor" Height="700" Width="1080"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI" FontSize="12">
+
+    <DockPanel Margin="14">
+
+        <!-- Top: testcase name + bus tag selector -->
+        <Grid DockPanel.Dock="Top" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="🍌 Testcase name:" Grid.Column="0" VerticalAlignment="Center"
+                       FontWeight="Bold" Margin="0,0,8,0"/>
+            <TextBox x:Name="TcNameBox" Grid.Column="1" VerticalAlignment="Center"/>
+            <TextBlock Text="Bus (tag):" Grid.Column="2" VerticalAlignment="Center"
+                       FontWeight="Bold" Margin="16,0,8,0"/>
+            <ComboBox x:Name="BusTagCombo" Grid.Column="3" VerticalAlignment="Center"
+                      SelectionChanged="OnBusTagChanged"/>
+            <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="+ Add message" Padding="10,4" Margin="0,0,8,0" Click="OnAddMessage"/>
+                <Button Content="+ Add bus tag" Padding="10,4" Click="OnAddBusTag"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Bottom: action buttons -->
+        <Border DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="#FFD0D0D0"
+                Padding="0,10,0,0" Margin="0,10,0,0">
+            <DockPanel>
+                <TextBlock x:Name="StatusBlock" DockPanel.Dock="Left" Foreground="DarkRed"
+                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="💾 Save .mtc" Width="120" Padding="0,5" Margin="0,0,8,0"
+                            Click="OnSave" IsDefault="True"/>
+                    <Button Content="Close" Width="80" Padding="0,5" Click="OnClose" IsCancel="True"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Middle: messages + signals -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="380"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Messages list -->
+            <DockPanel Grid.Column="0" Margin="0,0,10,0">
+                <TextBlock DockPanel.Dock="Top" Text="Messages" FontWeight="Bold" Margin="0,0,0,4"/>
+                <DataGrid x:Name="MessagesGrid" AutoGenerateColumns="False"
+                          CanUserAddRows="False" HeadersVisibility="Column"
+                          SelectionMode="Single" SelectionChanged="OnMessageSelected"
+                          GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="70"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Cycle(ms)" Binding="{Binding CycleTime}" Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+
+            <!-- Signals of selected message -->
+            <DockPanel Grid.Column="1">
+                <TextBlock DockPanel.Dock="Top" x:Name="SignalsHeader"
+                           Text="Signals" FontWeight="Bold" Margin="0,0,0,4"/>
+                <Button DockPanel.Dock="Bottom" Content="+ Add signal" Padding="10,4"
+                        HorizontalAlignment="Left" Margin="0,6,0,0" Click="OnAddSignal"/>
+                <DataGrid x:Name="SignalsGrid" AutoGenerateColumns="False"
+                          CanUserAddRows="False" HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Signal name" Binding="{Binding CanSignalName}" Width="*"/>
+                        <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+
+    </DockPanel>
+</Window>

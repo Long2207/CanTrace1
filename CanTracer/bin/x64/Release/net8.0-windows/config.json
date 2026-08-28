@@ -1,0 +1,15 @@
+{
+  "Buses": [
+    {
+      "Name": "ICAN",
+      "ChannelId": "PCAN_USBBUS1",
+      "ChannelLabel": "PEAK PCAN-USB #1",
+      "IsFd": false,
+      "Baud": "500 kbit/s",
+      "FdNominal": "500",
+      "FdData": "2000",
+      "DbcPath": "C:\\Users\\admin\\Downloads\\NP_10.9.5\\01_Info_CAN_Matrix_BEV_MHU_v10.9.5.dbc",
+      "ColorHex": "#FF1976D2"
+    }
+  ]
+}
